@@ -6,13 +6,19 @@ LABEL maintainer="tgremlin82 <tenisonallan@gmail.com>"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV aws=/usr/bin/local/aws
 
-# Install packages
+# Install curl
 RUN apt-get update \
-    && apt-get install curl -y\
-    && curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
-    && sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
-    && sudo apt-get update && sudo apt-get install packer -y \
-	&& apt-get clean \
+    && apt-get install -y software-properties-common \
+    gnupg \
+    curl \ 
+    unzip
+# Add packer repo
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - \
+    && apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+# Install packer
+RUN apt-get update && apt-get install packer -y
+# Cleanup
+RUN	apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* *.zip
 # Install AWS CLI using curl and unzip
 RUN mkdir /tmp/aws && cd /tmp/aws \
