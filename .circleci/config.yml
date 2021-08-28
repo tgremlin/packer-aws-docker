@@ -1,0 +1,18 @@
+
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+workflows:
+  build:
+    jobs:
+      - build:
+          context: org-global
+jobs:
+  build:
+    machine: true 
+    steps:
+      - checkout
+      # build the application image
+      - run: docker build -t tgremlin82/packer_aws:1.0 .
+
+      # login to docker hub and push the image
+      - run: docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD  && docker push tgremlin82/terraform_ansible_aws:1.0
