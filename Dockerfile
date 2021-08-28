@@ -8,10 +8,10 @@ ENV aws=/usr/bin/local/aws
 
 # Install packages
 RUN apt-get update \
-    && apt-get install curl \
+    && apt-get install curl -y\
     && curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
     && sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
-    && sudo apt-get update && sudo apt-get install packer \
+    && sudo apt-get update && sudo apt-get install packer -y \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* *.zip
 # Install AWS CLI using curl and unzip
