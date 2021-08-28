@@ -15,4 +15,4 @@ jobs:
       - run: docker build -t tgremlin82/packer_aws:1.0 .
 
       # login to docker hub and push the image
-      - run: docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD  && docker push tgremlin82/terraform_ansible_aws:1.0
+      - run: docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD  && docker push tgremlin82/packer_aws:1.0
